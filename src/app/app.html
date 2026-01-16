@@ -1,6 +1,51 @@
-<h1>Password Generator</h1>
+<h1 class="text-4xl font-semibold tracking-tight text-balance text-white sm:text-5xl">
+  Password Generator
+</h1>
 
-<div style="display: flex; flex-direction: column; gap: 10px">
-  <label for="length">length</label>
-  <input type="text" id="length" />
+<div class="flex flex-col gap-2 my-4">
+  <label class="block text-sm/6 font-semibold text-white" for="length">Length</label>
+  <input
+    class="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+    (input)="handleLengthChange($event)"
+    type="text"
+    id="length"
+    [value]="length"
+  />
 </div>
+
+<div class="flex gap-2 my-4">
+  <input (change)="letters = !letters" type="checkbox" id="useLetters" [checked]="letters" />
+  <label class="block text-sm/6 font-semibold text-white" for="useLetters">Use Letters</label>
+</div>
+
+<div class="flex gap-2 my-4">
+  <input (change)="numbers = !numbers" type="checkbox" id="useNumbers" [checked]="numbers" />
+  <label class="block text-sm/6 font-semibold text-white" for="useNumbers">Use Numbers</label>
+</div>
+
+<div class="flex gap-2 my-4">
+  <input (change)="symbols = !symbols" type="checkbox" id="useSymbols" [checked]="symbols" />
+  <label class="block text-sm/6 font-semibold text-white" for="useSymbols">Use Symbols</label>
+</div>
+
+<button
+  class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-xs hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500 disabled:bg-gray-500"
+  [disabled]="!(length && (letters || numbers || symbols))"
+  (click)="generate()"
+>
+  Generate Password
+</button>
+
+@if(password){
+<div class="flex flex-col gap-2 my-4">
+  <h2 class="text-xl font-semibold tracking-tight text-balance text-white sm:text-xl">
+    Your password:
+  </h2>
+  <input
+    class="min-w-0 flex-auto rounded-md bg-white/5 px-3.5 py-2 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
+    type="text"
+    [value]="password"
+    readonly
+  />
+</div>
+}

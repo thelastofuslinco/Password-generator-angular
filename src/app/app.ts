@@ -7,15 +7,43 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App implements OnInit {
-  protected readonly title = signal('password-gen');
+export class App {
+  password = '';
+  letters = false;
+  numbers = false;
+  symbols = false;
+  length = 0;
 
-  ngOnInit(): void {
-    console.log('App initialized');
-    this.title.set('Password Generatodddr');
+  handleLengthChange(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.length = parseInt(input.value, 10);
+  }
 
-    console.log(this.title);
+  generate() {
+    const numbers = '0123456789';
+    const letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const symbols = '!@#$%^&*()_+~`|}{[]:;?><,./-=';
 
-    this.title.prototype = 'dadasda';
+    let validChars = '';
+
+    if (this.letters) {
+      validChars += letters;
+    }
+
+    if (this.numbers) {
+      validChars += numbers;
+    }
+
+    if (this.symbols) {
+      validChars += symbols;
+    }
+
+    let aux: string = '';
+    for (let i = 0; i < this.length; i++) {
+      const index = Math.floor(Math.random() * validChars.length);
+      aux += validChars[index];
+    }
+
+    this.password = aux;
   }
 }

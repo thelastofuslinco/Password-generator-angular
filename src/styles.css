@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+
+body {
+  background-color: oklch(27.8% 0.033 256.848);
+  padding: 1rem;
+  margin: 0 auto;
+}
